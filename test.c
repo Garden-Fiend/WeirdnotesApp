@@ -1,4 +1,5 @@
-//version 1
+//version 1: this ass implementation is shist
+
 #include <stdio.h>
 #include <string.h>
 
@@ -26,6 +27,7 @@ int main()
                 break;
             }
             else
+
             {
                 continue;
             }
