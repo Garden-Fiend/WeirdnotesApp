@@ -15,14 +15,14 @@ int main()
     char selection[5];
     char lineBuffer[100];
     char filename[200];
+    const char extension[4] = ".txt";
     int mode = 0;
     char fileAns;
     char line[200] = "\n----------------------------------------------------------------\n";
 
     printf("\tREALLY BADLY BUILT NOTES APP\n");
     printf("\n\t Press Enter to Start....");
-    printf("%s",line);
-
+    printf("%s", line);
 
     while ((input = getchar()) != EOF)
 
@@ -49,6 +49,8 @@ int main()
                 }
                 else if ((strcmp(lineBuffer, "/con")) == 0)
                 {
+                    printf("\033[H\033[J");
+                    printf("%s", textContent);
                     mode = 0;
                     continue;
                 }
@@ -66,6 +68,7 @@ int main()
                 {
                     textContent[text_i++] = lineBuffer[i];
                 }
+                textContent[text_i++] = '\n';
             }
 
             continue;
@@ -73,35 +76,36 @@ int main()
 
         buffer_i++;
     }
-    printf("%s",line);
+    printf("%s", line);
     textContent[text_i] = '\0';
 
-
-    do{
+    do
+    {
         printf("Enter a file name: \n");
-        scanf("%s",filename);
+        scanf("%s", filename);
 
-        if(filename == NULL){
+        if (filename == NULL)
+        {
             printf("Would you like to cancel ?: \n Y | N");
-            scanf("%c",&fileAns);
+            scanf("%c", &fileAns);
         }
 
+    } while (filename == NULL || fileAns == 'N' || fileAns == 'n');
 
-    }while(filename == NULL || fileAns == 'N' || fileAns == 'n');
+    strncat(filename,extension,4);
 
-    FILE *file = fopen(filename,"w");
+    FILE *file = fopen(filename, "w");
 
-    if(file == NULL){
+    if (file == NULL)
+    {
         printf("File Error: Cannot be Opened\n");
         return 1;
     }
 
-    fprintf(file,"%s", textContent);
+    fprintf(file, "%s", textContent);
 
     fclose(file);
     printf("Files is saved");
-
-
 
     return 0;
 }
