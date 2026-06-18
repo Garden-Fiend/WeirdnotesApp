@@ -17,12 +17,85 @@ int main()
     char filename[200];
     const char extension[4] = ".txt";
     int mode = 0;
+    char fileName[200];
     char fileAns;
+    char picker[4];
     char line[200] = "\n----------------------------------------------------------------\n";
 
-    printf("\tREALLY BADLY BUILT NOTES APP\n");
-    printf("\n\t Press Enter to Start....");
+    char putC;
+    char fG[200];
+
+    do
+    {
+        printf("\n\tREALLY BADLY BUILT NOTES APP\n");
+        printf("%s", line);
+
+        printf("\n\t /s -> start \n\t /r -> open file\n");
+        fgets(picker, 4, stdin);
+        printf("you have entered: %s", picker);
+
+        if (strcmp(picker, "/s\n") == 0)
+        {
+            printf("is this loop getting triggered ?");
+            break;
+        }
+        else if (strcmp(picker, "/r\n") == 0)
+        {
+
+            do
+            {
+
+                printf("\n Search for a file: ");
+                fgets(fileName, sizeof(fileName), stdin);
+
+                fileName[strlen(fileName) - 1] = '\0';
+
+                FILE *file = fopen(fileName, "r");
+
+                if (file == NULL)
+                {
+                    printf("%s does not exist: ", fileName);
+                    strncpy(picker, "/e", strlen(picker));
+                    printf("\033[H\033[J");
+                }
+                else
+                {
+
+                    printf("Putchar implementation: \n");
+
+                    while ((putC = fgetc(file)) != EOF)
+                    {
+                        putchar(putC);
+                    }
+
+                    printf("\n\t /c -> close the file\n\t /r -> read another file \n\t /s -> start writing\n");
+
+                    fgets(picker, sizeof(picker), stdin);
+
+                    if (strcmp(picker, "/s\n") == 0)
+                    {
+                        break;
+                    }
+                    else if (strcmp(picker, "/c\n") == 0)
+                    {
+                        fclose(file);
+                        continue;
+                    }
+                }
+
+            } while (strcmp(picker, "/s\n") == 1 || strcmp(picker, "/r\n") == 1);
+        }
+        else
+        {
+
+            printf("\033[H\033[J");
+            
+        }
+    } while (strcmp(picker, "/s\n") == 1 || strcmp(picker, "/r\n") == 0 || strcmp(picker, "/e") == 0 || strcmp(picker, "\n") == 0);
+
+    printf("\n\tREALLY BADLY BUILT NOTES APP\n");
     printf("%s", line);
+    printf("press enter to start writing...\n");
 
     while ((input = getchar()) != EOF)
 
@@ -92,7 +165,7 @@ int main()
 
     } while (filename == NULL || fileAns == 'N' || fileAns == 'n');
 
-    strncat(filename,extension,4);
+    strncat(filename, extension, 4);
 
     FILE *file = fopen(filename, "w");
 
@@ -109,3 +182,6 @@ int main()
 
     return 0;
 }
+
+// strlen = actual length of the array
+// sizeof = total allocated room of array

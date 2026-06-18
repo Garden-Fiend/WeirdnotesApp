@@ -72,3 +72,34 @@ int main() {
 
     return 0;
 }
+
+
+
+ printf("\n Enter filename: ");
+            fgets(fileName, strlen(fileName), stdin);
+
+            FILE *file = fopen(fileName, "r");
+
+            if (file == NULL)
+            {
+                printf("%s does not exist: ", fileName);
+                strncpy(picker, "/e", strlen(picker));
+            }
+            else
+            {
+
+                printf("Putchar implementation: \n");
+
+                while ((putC = fgetc(file)) != EOF)
+                {
+                    putchar(putC);
+                }
+
+                printf("Fgets implementation: \n");
+                while (fgets(fG, strlen(fG), file))
+                {
+                    printf("%s", fG);
+                }
+
+                fclose(file);
+            }
