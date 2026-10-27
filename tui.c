@@ -7,11 +7,12 @@ int main()
 {
 
     int buffer = 1000;
+    int linecounter = 0;
     int text_i = 0;
     int ii = 0;
     int buffer_i = 0;
     int input;
-    char textContent[buffer];
+    char textContent[1000];
     char selection[5];
     char lineBuffer[100];
     char filename[200];
@@ -27,6 +28,7 @@ int main()
 
     do
     {
+        printf("%s",line);
         printf("\n\tREALLY BADLY BUILT NOTES APP\n");
         printf("%s", line);
 
@@ -106,6 +108,7 @@ int main()
         {
             lineBuffer[buffer_i] = '\0';
             buffer_i = 0;
+            linecounter++;
 
             if ((strcmp(lineBuffer, "/")) == 0)
             {
@@ -135,7 +138,7 @@ int main()
             }
             else
             {
-                printf("WM:");
+                printf("%d: ",linecounter);
                 int len = strlen(lineBuffer);
                 for (int i = 0; i < len; i++)
                 {
